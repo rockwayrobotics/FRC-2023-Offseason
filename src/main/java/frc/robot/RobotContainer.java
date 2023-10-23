@@ -25,15 +25,17 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  // private final XboxController m_driverController = new XboxController(Constants.Gamepads.DRIVER);
-  private final XboxController m_operatorController = new XboxController(Constants.Gamepads.OPERATOR);
+  // private final XboxController m_driverController = new
+  // XboxController(Constants.Gamepads.DRIVER);
+  private final XboxController m_driverController = new XboxController(Constants.Gamepads.DRIVER);
 
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  // private final CommandXboxController m_driverController = new CommandXboxController(
-  //     OperatorConstants.kDriverControllerPort);
+  // private final CommandXboxController m_driverController = new
+  // CommandXboxController(
+  // OperatorConstants.kDriverControllerPort);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -61,11 +63,19 @@ public class RobotContainer {
    */
 
   private void configureBindings() {
-    final JoystickButton operator_aButton = new JoystickButton(m_operatorController, XboxController.Button.kA.value);
-    operator_aButton.onTrue(new InstantCommand(() -> m_led.setMode(modes.Green), m_led));
-    
-    final JoystickButton operator_bButton = new JoystickButton(m_operatorController, XboxController.Button.kB.value);
-    operator_bButton.onTrue(new InstantCommand(() -> m_led.setMode(modes.Blue), m_led));
+
+    final JoystickButton rightBumper = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
+    final JoystickButton leftBumper = new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
+    final JoystickButton aButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
+    final JoystickButton bButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
+    final JoystickButton xButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
+    final JoystickButton yButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
+    final JoystickButton startButton = new JoystickButton(m_driverController, XboxController.Button.kStart.value);
+    final JoystickButton backButton = new JoystickButton(m_driverController, XboxController.Button.kBack.value);
+
+    xButton.onTrue(new InstantCommand(() -> m_led.setMode(modes.Green), m_led));
+
+    yButton.onTrue(new InstantCommand(() -> m_led.setMode(modes.Blue), m_led));
   }
 
   /**
