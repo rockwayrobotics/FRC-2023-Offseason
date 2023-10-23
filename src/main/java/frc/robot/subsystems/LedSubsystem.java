@@ -10,6 +10,7 @@ public class LedSubsystem extends SubsystemBase {
   private AddressableLED m_led;
   private AddressableLEDBuffer m_ledBuffer;
   private modes m_mode;
+  private modes m_previous_mode;
 
   public LedSubsystem() {
 
@@ -18,9 +19,9 @@ public class LedSubsystem extends SubsystemBase {
 
     m_led.setLength(m_ledBuffer.getLength());
     m_led.setData(m_ledBuffer);
-
+    m_previous_mode = m_mode = modes.Green;
     m_led.start();
-    setMode(modes.Green);
+    // setMode(modes.Green);
   }
 
   public void setMode(modes mode) {
@@ -41,12 +42,16 @@ public class LedSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    switch (m_mode) {
-      case Green:
-        green();
-        break;
-      case Blue:
-        blue();
+    if (m_mode != m_previous_mode) {
+      switch (m_mode) {
+        case Green:
+          green();
+          break;
+        case Blue:
+          blue();
+      }
+      m_led.setData(m_ledBuffer);
     }
+    m_previous_mode = m_mode;
   }
 }

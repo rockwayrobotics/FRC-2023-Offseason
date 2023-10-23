@@ -4,9 +4,7 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -14,12 +12,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.LED.modes;
 import frc.robot.subsystems.LedSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-// import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-// import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -31,7 +25,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  private final XboxController m_driverController = new XboxController(Constants.Gamepads.DRIVER);
+  // private final XboxController m_driverController = new XboxController(Constants.Gamepads.DRIVER);
   private final XboxController m_operatorController = new XboxController(Constants.Gamepads.OPERATOR);
 
   // The robot's subsystems and commands are defined here...
@@ -69,10 +63,11 @@ public class RobotContainer {
   private void configureBindings() {
     final JoystickButton operator_aButton = new JoystickButton(m_operatorController, XboxController.Button.kA.value);
     operator_aButton.onTrue(new InstantCommand(() -> m_led.setMode(modes.Green), m_led));
+    
+    final JoystickButton operator_bButton = new JoystickButton(m_operatorController, XboxController.Button.kB.value);
+    operator_bButton.onTrue(new InstantCommand(() -> m_led.setMode(modes.Blue), m_led));
   }
 
-
-  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
