@@ -74,8 +74,9 @@ public class RobotContainer {
     final JoystickButton backButton = new JoystickButton(m_driverController, XboxController.Button.kBack.value);
 
     xButton.onTrue(new InstantCommand(() -> m_led.setMode(modes.Green), m_led));
-
     yButton.onTrue(new InstantCommand(() -> m_led.setMode(modes.Blue), m_led));
+    aButton.onTrue(new InstantCommand(() -> m_led.setMode(modes.oneSpace), m_led));
+    bButton.onTrue(new InstantCommand(() -> m_led.setMode(modes.singleRedDot), m_led));
   }
 
   /**

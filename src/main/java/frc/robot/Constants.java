@@ -32,7 +32,9 @@ public final class Constants {
 
     public static enum modes {
       Green,
-      Blue
+      Blue,
+      oneSpace,
+      singleRedDot
     }
   }
 }

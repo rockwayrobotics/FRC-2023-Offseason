@@ -11,6 +11,7 @@ public class LedSubsystem extends SubsystemBase {
   private AddressableLEDBuffer m_ledBuffer;
   private modes m_mode;
   private modes m_previous_mode;
+  private int counter;
 
   public LedSubsystem() {
 
@@ -40,18 +41,54 @@ public class LedSubsystem extends SubsystemBase {
     }
   }
 
+  private void one_spaced() {
+    var i = 0;
+    while (i < m_ledBuffer.getLength()) {
+      if (i % 2 == 0) {
+        m_ledBuffer.setRGB(i, 0, 0, 128);
+        i += 1;
+      } else {
+        m_ledBuffer.setRGB(i, 0, 128, 0);
+        i += 1;
+      }
+    }
+  }
+
+  private int counta = 0;
+
+  private void single_red_dot() {
+      for (int x = 0; x < m_ledBuffer.getLength(); x++) {
+          double r = 0;
+          double g = 0;
+          double b = 0;
+          
+          if (x % 10 == counta % 10) {
+              g = 255;
+          }
+          
+          m_ledBuffer.setRGB(x, (int) r, (int) g, (int) b);
+      }
+      
+      counta = (counta + 1) % m_ledBuffer.getLength();
+  }
+  
+
   @Override
   public void periodic() {
-    if (m_mode != m_previous_mode) {
-      switch (m_mode) {
-        case Green:
-          green();
-          break;
-        case Blue:
-          blue();
-      }
-      m_led.setData(m_ledBuffer);
+    // if (m_mode != m_previous_mode) {
+    switch (m_mode) {
+      case Green:
+        green();
+        break;
+      case Blue:
+        blue();
+      case oneSpace:
+        one_spaced();
+      case singleRedDot:
+        single_red_dot();
     }
-    m_previous_mode = m_mode;
+    m_led.setData(m_ledBuffer);
+    // }
+    // m_previous_mode = m_mode;
   }
 }
