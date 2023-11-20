@@ -7,14 +7,15 @@ import frc.robot.Constants;
 import frc.robot.Constants.LED.modes;
 
 public class LedSubsystem extends SubsystemBase {
+
   private AddressableLED m_led;
   private AddressableLEDBuffer m_ledBuffer;
   private modes m_mode;
   private modes m_previous_mode;
-  private int counter;
+
+  // private int counter;
 
   public LedSubsystem() {
-
     m_led = new AddressableLED(Constants.LED.LED_PWM);
     m_ledBuffer = new AddressableLEDBuffer(Constants.LED.LED_LENGTH);
 
@@ -24,7 +25,7 @@ public class LedSubsystem extends SubsystemBase {
     m_led.start();
     // setMode(modes.Green);
   }
-
+  
   public void setMode(modes mode) {
     m_mode = mode;
   }
@@ -74,20 +75,20 @@ public class LedSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // if (m_mode != m_previous_mode) {
-    switch (m_mode) {
-      case Green:
-        green();
-        break;
-      case Blue:
-        blue();
-      case oneSpace:
-        one_spaced();
-      case singleRedDot:
-        single_red_dot();
+    if (m_mode != m_previous_mode) {
+      switch (m_mode) {
+        case Green:
+          green();
+          break;
+        case Blue:
+          blue();
+        case oneSpace:
+          one_spaced();
+        case singleRedDot:
+          single_red_dot();
+      }
+      m_led.setData(m_ledBuffer);
     }
-    m_led.setData(m_ledBuffer);
-    // }
-    // m_previous_mode = m_mode;
+    m_previous_mode = m_mode;
   }
 }
