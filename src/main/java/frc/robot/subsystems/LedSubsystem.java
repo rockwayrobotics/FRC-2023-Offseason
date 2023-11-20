@@ -57,21 +57,20 @@ public class LedSubsystem extends SubsystemBase {
   private int counta = 0;
 
   private void single_red_dot() {
-      for (int x = 0; x < m_ledBuffer.getLength(); x++) {
-          double r = 0;
-          double g = 0;
-          double b = 0;
-          
-          if (x % 10 == counta % 10) {
-              g = 255;
-          }
-          
-          m_ledBuffer.setRGB(x, (int) r, (int) g, (int) b);
+    for (int x = 0; x < m_ledBuffer.getLength(); x++) {
+      double r = 0;
+      double g = 0;
+      double b = 0;
+
+      if (x % 10 == counta % 10) {
+        g = 255;
       }
-      
-      counta = (counta + 1) % m_ledBuffer.getLength();
+
+      m_ledBuffer.setRGB(x, (int) r, (int) g, (int) b);
+    }
+
+    counta = (counta + 1) % m_ledBuffer.getLength();
   }
-  
 
   @Override
   public void periodic() {
