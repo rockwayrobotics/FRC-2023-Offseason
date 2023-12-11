@@ -6,7 +6,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
+import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -52,13 +52,16 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     var m_thing = new WPI_TalonFX(1);
-
-    m_driverController
-      .b()
-      .whileTrue(new InstantCommand(() -> m_thing.set(0.5)))
-      .whileFalse(new InstantCommand(() -> m_thing.set(0)));
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
+    var m_thing2 = new CANSparkMax(2, CANSparkMax.MotorType.kBrushless);
+      m_driverController
+        .b()
+        .whileTrue(new InstantCommand(() -> m_thing.set(1)))
+        .whileFalse(new InstantCommand(() -> m_thing.set(0)));
+      m_driverController.a()
+        .whileTrue(new InstantCommand(() -> m_thing2.set(1)))
+        .whileFalse(new InstantCommand(() -> m_thing2.set(0)));
+      // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
+      // cancelling on release.
   }
 
   /**
